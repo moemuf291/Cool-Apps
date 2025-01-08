@@ -3,7 +3,7 @@ import json
 import os
 import sys
 
-user_input = input("Weather(1), Currency Coversion(2), Crypto Price(3): ")
+user_input = input("Weather(1), Currency Coversion(2), Crypto Price(3): ")    # this is where the user will choose what they want and the rest is if elif and else statment depending what the user states as there input
 
 
 if user_input == "1":
@@ -12,33 +12,33 @@ if user_input == "1":
         try:
             with open("wea.json", "r") as file:
                 weather = json.load(file)
-                return weather.get("api_key", "error") 
+                return weather.get("api_key", "error")  # this will get the api from the file called "wea.json"
         except FileNotFoundError as e:
             print(e)
-    api_key = weather_api()
+    api_key = weather_api()      # this defines api_key as weather_api() which is what we are going to get from the "wea.json" file
 
-    url = f"https://api.openweathermap.org/data/2.5/weather?q={city_name}&appid={api_key}"
+    url = f"https://api.openweathermap.org/data/2.5/weather?q={city_name}&appid={api_key}"   # this takes the user input of the city name and the api key and places this in the spaces for the url
 
     try:
-        response = requests.get(url, timeout=5)
+        response = requests.get(url, timeout=5)    # this sends the request to the url and has a timeout of 5 secs that means if 5 secs pass and a connection has not been made in will print out a TimeoutError
     except TimeoutError as e:
         print(e)
     
-    if response.status_code == 200:
-        data = response.json()
+    if response.status_code == 200:      # the is saying if the response which is defined as the connection to the server aka "url" was succesfull the we will save the reponse the server sends us as data  the 200 means that connection was succesfull
+        data = response.json()    # defined data as the response from the server we also want it to be in  json format 
         
-        cityname = data["name"]
+        cityname = data["name"]           # this whole this is us access that data and grabbing the stuff we want from it saving it as different variables  
         temperture = data["main"]["temp"]
         feels = data["main"]["feels_like"]
 
-        temperture_f = 1.8 * (temperture - 273.15) + 32
+        temperture_f = 1.8 * (temperture - 273.15) + 32   # both of these are then calculated in fahernet and rounded 
         temf_rounded = round(temperture_f)
 
-        feels_f = 1.8 * (feels - 273.15) + 32
+        feels_f = 1.8 * (feels - 273.15) + 32               # both of these are then calculated in fahernet and rounded 
         feels_round_f = round(feels_f)
 
         print(f"the temperture in {cityname}")
-        print(f"{temf_rounded}°F")
+        print(f"{temf_rounded}°F")                                 # now we print them to the user screen 
         print(f"feels like {feels_round_f}°F")
     else:
         print(ConnectionError)
