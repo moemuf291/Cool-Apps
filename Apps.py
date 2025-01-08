@@ -3,7 +3,7 @@ import json
 import os
 import sys
 
-user_input = input("Weather(1), Currency Coversion(2), Crypto Price(3): ")    # this is where the user will choose what they want and the rest is if elif and else statment depending what the user states as there input
+user_input = input("Weather(1), Currency Coversion(2), Crypto Price(3): ")     # this is where the user will choose what they want and the rest is if elif and else statment depending what the user states as there input
 
 
 if user_input == "1":
